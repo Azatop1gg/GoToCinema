@@ -1,0 +1,46 @@
+﻿@model GoToCinema.Models.DomainModels.Cinema
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+
+<div>
+    <h4>Cinema</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+</div>
+<div>
+    @for (int i = 0; i < 7; i++)
+    {
+        using (Ajax.BeginForm("GetSessionsByDate", new AjaxOptions { UpdateTargetId = "result" }))
+        {
+            <input type="hidden" name="cinemaId" value="@Model.Id" />
+            <input type="submit" name="date" value="@DateTime.Now.AddDays(i).ToShortDateString()" />
+        }
+    }
+</div>
+@if (User.IsInRole("admin"))
+{
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+}
+else
+{
+<p>@Html.ActionLink("Back to List", "Index")</p>
+}
+
+<div id="result"></div>

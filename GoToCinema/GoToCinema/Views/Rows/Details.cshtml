@@ -1,0 +1,42 @@
+﻿@model GoToCinema.Models.DomainModels.Row
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Row</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Hall.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hall.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RowName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RowName)
+        </dd>
+
+    </dl>
+</div>
+@if (User.IsInRole("admin"))
+{
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
+else
+{
+    <p>@Html.ActionLink("Back to List", "Index")</p>
+}

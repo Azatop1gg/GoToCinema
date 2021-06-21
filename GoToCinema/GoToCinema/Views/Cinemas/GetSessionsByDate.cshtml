@@ -1,0 +1,42 @@
+﻿@using GoToCinema.Models.DomainModels
+
+@model IEnumerable<Session>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Hall.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Movie.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndTime)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hall.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Movie.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndTime)
+            </td>
+            <td>
+                @Html.ActionLink("Get Booking Page", "GetBookingPage", new { sessionId = item.Id})
+            </td>
+        </tr>
+    }
+
+</table>
