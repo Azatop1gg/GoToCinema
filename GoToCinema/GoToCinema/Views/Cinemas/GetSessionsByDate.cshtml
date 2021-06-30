@@ -1,6 +1,7 @@
 ﻿@using GoToCinema.Models.DomainModels
 
 @model IEnumerable<Session>
+
 <table class="table">
     <tr>
         <th>
@@ -34,7 +35,7 @@
                 @Html.DisplayFor(modelItem => item.EndTime)
             </td>
             <td>
-                @Html.ActionLink("Get Booking Page", "GetBookingPage", new { sessionId = item.Id})
+                @Html.ActionLink("Get Booking Page", "GetBookingPage", new { sessionId = item.Id}, new { @class ="btn btn-outline-primary"})
             </td>
         </tr>
     }

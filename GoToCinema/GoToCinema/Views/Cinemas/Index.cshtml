@@ -3,42 +3,24 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@if (User.IsInRole("admin")) 
-{ 
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
+@Styles.Render("~/Content/MyStyles/CinemaStyles.css")
+
+@if (User.IsInRole("admin"))
+{
+    <div>
+        <button class="btn btn-outline-primary" onclick="location.href='/Cinemas/Create'" style="margin:10px;">Добавить</button>
+    </div>
 }
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Name)
-    </td>
-    @if (User.IsInRole("admin"))
-    {
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id })
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-        </td>
-    }
-    else
-    {
-        <td>@Html.ActionLink("Details", "Details", new { id = item.Id })</td>
-    }
-
-
-</tr>
-    }
-
-</table>
+@foreach (var item in Model)
+{
+    <div class="cinema-item" onclick="location.href = '/Cinemas/Details/@item.Id'">
+        <div class="image">
+            @if (item.Image != null)
+            {
+                <img class="cinemaImage" onclick="location.href = '/Cinemas/Details/@item.Id'" src="data:image/jpeg;base64,@Convert.ToBase64String(item.Image)" />
+            }
+            <h2 class="text-center title"><span class="text-center titleStyle">@item.Name</span></h2>
+        </div>
+    </div>
+}

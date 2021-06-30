@@ -19,7 +19,7 @@ namespace GoToCinema.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            var sessions = db.Sessions.Include(s => s.Hall).Include(s => s.Movie);
+            var sessions = db.Sessions.Include(s => s.Hall).Include(s => s.Movie).Include(c=>c.Hall.Cinema);
             return View(sessions.ToList());
         }
 
@@ -31,9 +31,7 @@ namespace GoToCinema.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Session session = db.Sessions.Find(id);
-            session.Hall = db.Halls.Find(session.HallId);
-            session.Movie = db.Movies.Find(session.MovieId);
+            Session session = db.Sessions.Include(x=>x.Hall).Include(x=>x.Movie).FirstOrDefault(x=>x.Id == id);
             
             if (session == null)
             {
@@ -55,18 +53,25 @@ namespace GoToCinema.Controllers
         // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Session session, DateTime time)
+        public ActionResult Create(Session session, TimeSpan startTime, TimeSpan timeofend)
         {
+            ViewBag.HallId = new SelectList(db.Halls, "Id", "Name", session.HallId);
+            ViewBag.MovieId = new SelectList(db.Movies, "Id", "Name", session.MovieId);
+            session.Date = session.Date + startTime;
+            session.EndTime = session.EndTime + timeofend;
             if (ModelState.IsValid)
             {
-                session.Date = time;
+                if(session.Date > session.EndTime)
+                {
+                    ModelState.AddModelError("", "Не правильно поставлено время начала и конца сеанса!");
+
+                    return View(session);
+                }
                 db.Sessions.Add(session);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.HallId = new SelectList(db.Halls, "Id", "Name", session.HallId);
-            ViewBag.MovieId = new SelectList(db.Movies, "Id", "Name", session.MovieId);
             return View(session);
         }
 
@@ -113,7 +118,8 @@ namespace GoToCinema.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Session session = db.Sessions.Find(id);
+            Session session = db.Sessions.Include(x => x.Hall).Include(x => x.Movie).FirstOrDefault(x => x.Id == id);
+
             if (session == null)
             {
                 return HttpNotFound();

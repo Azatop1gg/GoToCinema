@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -48,10 +49,19 @@ namespace GoToCinema.Controllers
         // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Genre,Producer,Year,Country,Description")] Movie movie)
+        public ActionResult Create(Movie movie, HttpPostedFileBase uploadImage)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && uploadImage != null)
             {
+                byte[] imageData = null;
+
+                using (var binaryReader = new BinaryReader(uploadImage.InputStream))
+                {
+                    imageData = binaryReader.ReadBytes(uploadImage.ContentLength);
+                }
+
+                movie.Image = imageData;
+
                 db.Movies.Add(movie);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -112,6 +122,11 @@ namespace GoToCinema.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Movie movie = db.Movies.Find(id);
+            var sessions = db.Sessions.Where(x => x.MovieId == movie.Id).ToList();
+            if(sessions != null)
+            {
+                db.Sessions.RemoveRange(sessions);
+            }
             db.Movies.Remove(movie);
             db.SaveChanges();
             return RedirectToAction("Index");

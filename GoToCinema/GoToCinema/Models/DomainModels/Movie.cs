@@ -32,6 +32,7 @@ namespace GoToCinema.Models.DomainModels
 
         [Display(Name = "Описание")]
         public string Description { get; set; }
+        public byte[] Image { get; set; }
         public ICollection<Session> Sessions { get; set; }
 
     }

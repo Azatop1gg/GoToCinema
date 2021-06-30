@@ -2,77 +2,79 @@
 @using GoToCinema.Models.DomainModels.Enums
 @model BookingViewModel
 @{
-    ViewBag.Title = "GetBookingPage";
     Layout = "~/Views/Shared/_Layout.cshtml";
     int sessionId = 0;
-    string rowName = "A";
-    
+    string rowName = "";
 }
 <br />
-@Styles.Render("~/Content/MyStyles/Styles.css")
+@Styles.Render("~/Content/MyStyles/BookingPageStyles.css")
 <form action="/Cinemas/GetBookingPage" method="post">
-    <div>
-        @foreach (var sessionseat in Model.SessionSeats)
-        {
-            if (sessionseat.UserId == ViewBag.UserId)
+    <div class="hall">
+        <div>
+            @foreach (SessionSeat sessionSeat in Model.SessionSeats)
             {
-                if (sessionseat.SeatState == SeatState.Booked)
+                if (rowName != sessionSeat.Row.RowName)
                 {
-                    <label>
-                        <input type="checkbox" class="bookedMe" />
-                        <span class="fakeBookedMe"></span>
-                    </label>
+                    <br />
+                    rowName = sessionSeat.Row.RowName;
                 }
-                else if (sessionseat.SeatState == SeatState.Bought)
+
+                if (sessionSeat.UserId == ViewBag.UserId)
                 {
-                    <label>
-                        <input type="checkbox" class="boughtMe" />
-                        <span class="fakeBoughtMe"></span>
-                    </label>
+                    if (sessionSeat.SeatState == SeatState.Booked)
+                    {
+                        <label>
+                            <input type="checkbox" class="bookedMe" name="bookedSeatIds" value="@sessionSeat.SeatId" />
+                            <span class="fakeBookedMe"></span>
+                        </label>
+                    }
+
+                    if (sessionSeat.SeatState == SeatState.Bought)
+                    {
+                        <label>
+                            <input type="checkbox" class="boughtMe" />
+                            <span class="fakeBoughtMe"></span>
+                        </label>
+                    }
                 }
                 else
                 {
-                    <label class="label">
-                        <input type="checkbox" class="free" name="seatIds" value="@sessionseat.SeatId" />
-                        <span class="fakeFree"></span>
-                    </label>
+                    if (sessionSeat.SeatState == SeatState.Bought || sessionSeat.SeatState == SeatState.Booked)
+                    {
+                        <label>
+                            <input type="checkbox" class="busy" />
+                            <span class="fakeBusy"></span>
+                        </label>
+                    }
+                    else
+                    {
+                        <label class="label">
 
+                            @*<input type="hidden" name="@sessionSeat.SeatId" value="@sessionSeat.SeatId" />
+                                <input type="hidden" name="@sessionSeat.RowId" value="@sessionSeat.RowId" />
+                                <input type="hidden" name="@sessionSeat.SessionId" value="@sessionSeat.SessionId" />
+                                <input type="hidden" name="@sessionSeat.UserId" value="@sessionSeat.UserId" />*@
+                            <input type="checkbox" class="free" name="freeSeatIds" value="@sessionSeat.SeatId" />
+                            <span class="fakeFree"></span>
+                        </label>
+                    }
                 }
+                sessionId = sessionSeat.SessionId;
             }
-            else
-            {
-                if (sessionseat.SeatState == SeatState.Bought || sessionseat.SeatState == SeatState.Booked)
-                {
-                    <label>
-                        <input type="checkbox" class="busy" />
-                        <span class="fakeBusy"></span>
-                    </label>
+        </div>
 
-
-                }
-                else
-                {
-                    <label class="label">
-                        <input type="checkbox" class="free" name="seatIds" value="@sessionseat.SeatId" />
-                        <span class="fakeFree"></span>
-                    </label>
-
-                }
-            }
-            sessionId = sessionseat.SessionId;
-            if (rowName != sessionseat.Row.RowName)
-            {
-                <br />
-                rowName = sessionseat.Row.RowName;
-            }
-        }
+        <input type="hidden" name="sessionId" value="@sessionId" />
     </div>
-    <div class="screen">Экран</div>
-    <input type="hidden" class="btn-default" name="sessionId" value="@sessionId" />
-    <input type="submit" class="btn btn-primary" name="action" value="Бронировать" />
-    <input type="submit" class="btn btn-info" name="action" value="Купить" />
+    <div class="screen">
+        <div class="fakeScreen"></div>
+    </div>
+    <div class="btn-group">
+        <button type="submit" name="action" class="btn btn-primary" value="@SeatAction.Book">Бронировать</button>
+        <button type="submit" name="action" class="btn btn-primary" value="@SeatAction.Buy">Купить</button>
+    </div>
+    <div class="container-1">
+        <a href="/Cinemas/Index" id="backToList" class="btn btn-info">Вернуться на главную</a>
+    </div>
 </form>
-       
-<script type="text/javascript">
-    $("#bookedMe").click(function () { return false;})
-</script>
+
+

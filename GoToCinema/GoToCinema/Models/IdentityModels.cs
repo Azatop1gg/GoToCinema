@@ -55,7 +55,7 @@ namespace GoToCinema.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Role, int, UserLogin, UserRole, UserClaim>
     {
         public ApplicationDbContext()
-            : base("CinemaDb")
+            : base("DefaultConnection")
         {
         }
 

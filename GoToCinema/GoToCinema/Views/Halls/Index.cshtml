@@ -1,15 +1,15 @@
 ﻿@model IEnumerable<GoToCinema.Models.DomainModels.Hall>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Залы";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2 class="heading">@ViewBag.Title</h2>
 @if (User.IsInRole("admin"))
-{ 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+{
+    <div>
+        <button class="btn btn-outline-primary" onclick="location.href='/Halls/Create'" style="margin:10px;">Добавить фильм</button>
+    </div>
 }
 
 <table class="table">
@@ -25,26 +25,25 @@
 
     @foreach (var item in Model)
     {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Name)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Cinema.Name)
-    </td>
-    @if (User.IsInRole("admin"))
-    {
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id })
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-        </td>
-    }
-    else
-    {
-        <td>@Html.ActionLink("Details", "Details", new { id = item.Id })</td>
-    }
-</tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cinema.Name)
+            </td>
+            @if (User.IsInRole("admin"))
+            {
+                <td>
+                    <a href="/Halls/Edit/@item.Id" class="btn btn-outline-primary">Изменить</a>
+                    <a href="/Halls/Details/@item.Id" class="btn btn-outline-primary">Информация</a>
+                    <a href="/Halls/Delete/@item.Id" class="btn btn-outline-danger btn-danger">Удалить</a>
+                </td>
+            }
+            else
+            {
+            }
+        </tr>
     }
 
 </table>

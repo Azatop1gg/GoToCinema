@@ -5,12 +5,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2 class="heading">Ряды</h2>
 @if (User.IsInRole("admin"))
 {
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<div>
+    <button class="btn btn-outline-primary" onclick="location.href='/Rows/Create'" style="margin:10px;">Добавить ряд</button>
+</div>
 }
 
 <table class="table">
@@ -42,14 +42,13 @@
     @if (User.IsInRole("admin"))
     {
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id })
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            <a href="/Rows/Edit/@item.Id" class="btn btn-outline-primary">Изменить</a>
+            <a href="/Rows/Details/@item.Id" class="btn btn-outline-primary">Информация</a>
+            <a href="/Rows/Delete/@item.Id" class="btn btn-outline-danger btn-danger">Удалить</a>
         </td>
     }
     else
     {
-        <td>@Html.ActionLink("Details", "Details", new { id = item.Id })</td>
     }
 </tr>
     }

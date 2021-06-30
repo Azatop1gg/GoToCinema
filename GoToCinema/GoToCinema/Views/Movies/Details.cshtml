@@ -5,10 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
-
+<h2 class="heading">Информация</h2>
+@Styles.Render("~/Content/MyStyles/MovieStyles.css")
 <div>
-    <h4>Movie</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -63,13 +62,17 @@
 </div>
 @if (User.IsInRole("admin"))
 {
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
+    <div>
+        <a href="/Movies/Edit/@Model.Id" class="btn btn-outline-primary">Изменить</a>
+        <a href="/Movies/Delete/@Model.Id" class="btn btn-outline-danger btn-danger">Удалить</a>
+    </div>
+    <div class="container-1">
+        <a href="/Movies/Index" id="backToList" class="btn btn-info">Вернуться на главную</a>
+    </div>
 }
 else
 {
-    <p>@Html.ActionLink("Back to List", "Index")</p>
+    <div class="container-1">
+        <a href="/Movies/Index" id="backToList" class="btn btn-info">Вернуться на главную</a>
+    </div>
 }
-

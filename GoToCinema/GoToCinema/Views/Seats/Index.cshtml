@@ -5,18 +5,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2 class="heading">Места</h2>
 @if (User.IsInRole("admin"))
 {
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+    <div>
+        <button class="btn btn-outline-primary" onclick="location.href='/Seats/Create'" style="margin:10px;">Добавить ряд</button>
+    </div>
 }
 
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Row.Id)
+            @Html.DisplayNameFor(model => model.Row.RowName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.SeatNumber)
@@ -28,7 +28,7 @@
     {
 <tr>
     <td>
-        @Html.DisplayFor(modelItem => item.Row.Id)
+        @Html.DisplayFor(modelItem => item.Row.RowName)
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.SeatNumber)
@@ -36,14 +36,13 @@
     @if (User.IsInRole("admin"))
     {
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id })
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            <a href="/Seats/Edit/@item.Id" class="btn btn-outline-primary">Изменить</a>
+            <a href="/Seats/Details/@item.Id" class="btn btn-outline-primary">Информация</a>
+            <a href="/Seats/Delete/@item.Id" class="btn btn-outline-danger btn-danger">Удалить</a>
         </td>
     }
     else
     {
-        <td>@Html.ActionLink("Details", "Details", new { id = item.Id })</td>
     }
 </tr>
     }

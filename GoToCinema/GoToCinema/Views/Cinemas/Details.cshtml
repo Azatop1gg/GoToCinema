@@ -1,15 +1,14 @@
 ﻿@model GoToCinema.Models.DomainModels.Cinema
 
 @{
-    ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2 class="heading">Информация</h2>
 
+<img class="cinemaImage" style="width:900px;height:500px" src="data:image/jpeg;base64,@Convert.ToBase64String(Model.Image)" />
 
 <div>
-    <h4>Cinema</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -19,28 +18,38 @@
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
+
     </dl>
 </div>
-<div>
+
+@if (User.IsInRole("admin"))
+{
+    <div style="margin:10px;">
+        <a href="/Cinemas/Edit/@Model.Id" class="btn btn-outline-primary">Изменить</a>
+        <a href="/Cinemas/Delete/@Model.Id" class="btn btn-outline-danger btn-danger">Удалить</a>
+    </div>
+    <div class="container-1">
+        <a href="/Cinemas/Index" id="backToList" class="btn btn-info">Вернуться на главную</a>
+    </div>
+}
+else
+{
+    <div class="container-1">
+        <a href="/Cinemas/Index" id="backToList" class="btn btn-info">Вернуться на главную</a>
+    </div>
+}
+
+<div style="display: flex;justify-content: center;">
     @for (int i = 0; i < 7; i++)
     {
         using (Ajax.BeginForm("GetSessionsByDate", new AjaxOptions { UpdateTargetId = "result" }))
         {
-            <input type="hidden" name="cinemaId" value="@Model.Id" />
-            <input type="submit" name="date" value="@DateTime.Now.AddDays(i).ToShortDateString()" />
+            <div style="margin:10px;">
+                <input type="hidden" name="cinemaId" value="@Model.Id" />
+                <input type="submit" name="date" class="btn btn-primary" style="display:inline-block;" value="@DateTime.Now.AddDays(i).ToShortDateString()" />
+            </div>
         }
     }
 </div>
-@if (User.IsInRole("admin"))
-{
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
-}
-else
-{
-<p>@Html.ActionLink("Back to List", "Index")</p>
-}
 
 <div id="result"></div>

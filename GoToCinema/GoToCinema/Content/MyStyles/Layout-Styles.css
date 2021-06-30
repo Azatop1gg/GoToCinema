@@ -1,0 +1,109 @@
+﻿body{
+}
+
+.justify-content-center {
+    justify-content: space-between !important;
+}
+
+.d-flex {
+    display: flex !important;
+}
+
+.py-3 {
+    padding-top: 3px !important;
+    font-size: 16px
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #0d6efd;
+    cursor:pointer;
+}
+
+.navbar-inverse {
+    background-color: white;
+    border-bottom: 1px solid #808080;
+}
+
+.b-example-divider {
+    height: 10cm;
+    background-image: url('/Content/Images/tihoe mesto.jpg');
+    background-size:100%;
+    background-color: grey;
+    border: solid grey;
+    border-width: 1px 0;
+    box-shadow: inset 0 0.5em 1.5em rgb(0 0 0 / 10%), inset 0 0.125em 0.5em rgb(0 0 0 / 15%);
+}
+
+.text-end {
+    text-align: right !important;
+}
+
+.align-items-center {
+    align-items: center !important;
+}
+
+.btn {
+    margin:3px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 0.1px solid #808080;
+    padding: .375rem .75rem;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.btn-outline-primary {
+    color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.btn-outline-success {
+    color: #5cb85c;
+    border-color: #5cb85c;
+}
+
+.btn-outline-danger {
+    color: #d9534f;
+    border-color: #d9534f;
+}
+.btn-outline-primary:hover {
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.UserName {
+    color: #0d6efd;
+}
+
+.container-1 {
+    display: flex;
+    justify-content: center;
+}
+
+.body-content{
+}
+
+.heading {
+   display:flex;
+   justify-content:center;
+}
+
+#backToList{
+    margin:10px;
+}

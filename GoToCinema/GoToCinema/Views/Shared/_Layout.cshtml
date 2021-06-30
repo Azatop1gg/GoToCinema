@@ -6,40 +6,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - приложение ASP.NET</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/MyStyles/Layout-Styles.css")
     @Scripts.Render("~/bundles/modernizr")
+    @using Microsoft.AspNet.Identity
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Залы", "Index", "Halls", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Сеансы", "Index", "Sessions", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Кинотеатры", "Index", "Cinemas", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Фильмы", "Index", "Movies", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Ряд", "Index", "Rows", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Места", "Index", "Seats", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            @Html.Partial("_LoginPartial")
+            <header class="d-flex justify-content-center py-3 align-items-center">
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a href='/Cinemas/Index' class="nav-link" aria-current="page">Кинотеатры</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/Sessions/Index" class="nav-link" aria-current="page">Сессии</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href='/Movies/Index' class="nav-link" aria-current="page">Фильмы</a>
+                    </li>
+                    @if (User.IsInRole("admin"))
+                    {
+                        <li class="nav-item ">
+                            <a href='/Halls/Index' class="nav-link" aria-current="page">Залы</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href='/Rows/Index' class="nav-link" aria-current="page">Ряды</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href='/Seats/Index' class="nav-link" aria-current="page">Места</a>
+                        </li>
+                    }
+                </ul>
+                @if (Request.IsAuthenticated)
+                {
+                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="loggedIn">
+                            <button class="btn btn-outline-primary" onclick="location.href='/Manage/Index'">@User.Identity.GetUserName()</button>
+                            <a class="btn btn-primary" href="javascript:document.getElementById('logoutForm').submit()">Выйти</a>
+                        </div>
+                    }
+
+                }
+                else
+                {
+                    <div class="col-md-3 text-end">
+                        <button onclick="location.href='/Account/LogIn'" type="button" class="btn btn-outline-primary me-2">Вход</button>
+                        <button onclick="location.href='/Account/Register'" type="button" class="btn btn-primary">Регистрация</button>
+                    </div>
+                }
+            </header>
         </div>
     </div>
+    <div class="b-example-divider"></div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - мое приложение ASP.NET</p>
-        </footer>
     </div>
     @Scripts.Render("~/Scripts/jquery-3.4.1.min.js")
     @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
+    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap.css")
-
+    
     @RenderSection("scripts", required: false)
 </body>
-
 </html>

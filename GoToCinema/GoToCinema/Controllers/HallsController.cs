@@ -28,7 +28,7 @@ namespace GoToCinema.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hall hall = db.Halls.Find(id);
+            Hall hall = db.Halls.Include(x=>x.Cinema).FirstOrDefault(x=>x.Id == id);
             if (hall == null)
             {
                 return HttpNotFound();
@@ -101,7 +101,7 @@ namespace GoToCinema.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Hall hall = db.Halls.Find(id);
+            Hall hall = db.Halls.Include(x => x.Cinema).FirstOrDefault(x => x.Id == id);
             if (hall == null)
             {
                 return HttpNotFound();

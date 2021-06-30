@@ -1,0 +1,23 @@
+﻿body {
+}
+
+.movieImage {     
+    width: 160px;
+    height: 210px;
+    border-radius: 5px;
+    cursor:pointer;
+    border:0.001px solid #aeaeae;
+    margin:5px;
+}
+.movieDiv{
+    display:inline-block;
+}
+
+.justify-center {
+    justify-content: space-between !important;
+}
+
+.d-flex {
+    display: flex !important;
+}
+

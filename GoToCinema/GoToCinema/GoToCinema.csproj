@@ -207,8 +207,17 @@
     <Compile Include="Migrations\202106210739222_AddRequired.Designer.cs">
       <DependentUpon>202106210739222_AddRequired.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106251303551_AddPicToCinema.cs" />
+    <Compile Include="Migrations\202106251303551_AddPicToCinema.Designer.cs">
+      <DependentUpon>202106251303551_AddPicToCinema.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106281200281_AddImageToMovie.cs" />
+    <Compile Include="Migrations\202106281200281_AddImageToMovie.Designer.cs">
+      <DependentUpon>202106281200281_AddImageToMovie.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DomainModels\Enums\SeatAction.cs" />
     <Compile Include="Models\DomainModels\Enums\SeatState.cs" />
     <Compile Include="Models\DomainModels\Movie.cs" />
     <Compile Include="Models\DomainModels\Hall.cs" />
@@ -228,7 +237,11 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\MyStyles\Styles.css" />
+    <Content Include="Content\Images\tihoe mesto.jpg" />
+    <Content Include="Content\MyStyles\BookingPageStyles.css" />
+    <Content Include="Content\MyStyles\Layout-Styles.css" />
+    <Content Include="Content\MyStyles\MovieStyles.css" />
+    <Content Include="Content\MyStyles\CinemaStyles.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -259,8 +272,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -353,6 +364,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106210739222_AddRequired.resx">
       <DependentUpon>202106210739222_AddRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106251303551_AddPicToCinema.resx">
+      <DependentUpon>202106251303551_AddPicToCinema.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106281200281_AddImageToMovie.resx">
+      <DependentUpon>202106281200281_AddImageToMovie.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

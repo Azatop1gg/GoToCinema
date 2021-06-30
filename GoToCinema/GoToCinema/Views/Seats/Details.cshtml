@@ -5,18 +5,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2 class="heading">Информация</h2>
 
 <div>
-    <h4>Seat</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Row.Id)
+            @Html.DisplayNameFor(model => model.Row.RowName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Row.Id)
+            @Html.DisplayFor(model => model.Row.RowName)
         </dd>
 
         <dt>
@@ -29,15 +28,8 @@
 
     </dl>
 </div>
-@if (User.IsInRole("admin"))
-{
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
-}
-else
-{
-    <p>@Html.ActionLink("Back to List", "Index")</p>
-}
 
+
+<div class="container-1">
+    <a href="/Seats/Index" id="backToList" class="btn btn-info">Вернуться на главную</a>
+</div>
